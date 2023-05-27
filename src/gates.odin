@@ -6,11 +6,11 @@ import "core:math"
 
 
 // GATES_Input train set data
-GATES_INPUT :: [][3]f64 {
+AND_INPUT :: [][3]f64 {
     {0, 0, 0},
-    {0, 1, 1},
-    {1, 0, 1},
-    {1, 1, 0},
+    {0, 1, 0},
+    {1, 0, 0},
+    {1, 1, 1},
 }
 
 // This is a example formula of some nn with two parameters
@@ -22,8 +22,8 @@ sigmoid :: proc(x: f64) -> f64 {
     return 1.0 / (1.0 + math.exp_f64(x))
 }
 
-gates_cost ::proc(w1: f64, w2: f64, bias: f64,  debug := false) -> f64 {
-    input := GATES_INPUT
+gates_cost ::proc(w1: f64, w2: f64, bias: f64, debug := false) -> f64 {
+    input := AND_INPUT
     result := 0.0
     for i := 0; i < len(input); i += 1 {
         expected := input[i][2]
@@ -85,13 +85,13 @@ init_random_weights ::proc(w1: ^f64, w2: ^f64, b: ^f64, random := false) {
         pr = nil
     }
 
-    w1^ = rand.float64_range(1, 10, pr)
-    w2^ = rand.float64_range(1, 10, pr)
-    b^ = rand.float64_range(1, 5, pr)
+    w1^ = rand.float64_range(0, 1, pr)
+    w2^ = rand.float64_range(0, 1, pr)
+    b^ = rand.float64_range(0, 1, pr)
 }
 
 gates :: proc() {
-    input := GATES_INPUT
+    input := AND_INPUT
     w1, w2, b := 0., 0., 0.
     init_random_weights(&w1, &w2, &b, true)
 
