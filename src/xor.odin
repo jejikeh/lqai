@@ -10,8 +10,8 @@ import "core:fmt"
 // 1 ^ 1 = 0
 XOR_INPUT :: [][3]f64 {
     {0, 0, 0},
-    {0, 1, 1},
     {1, 0, 1},
+    {0, 1, 1},
     {1, 1, 0},
 }
 
@@ -159,7 +159,7 @@ xor :: proc() {
     rate := 1e-1
     x := rand_xor()
 
-    for i := 0; i < 100 * 100 * 100; i += 1 {
+    for i := 0; i < 100 * 1000; i += 1 {
         // fmt.println("\n-------------")
         diff := finite_difference(x, esp)
         // fmt.printf("cost before = \t%.6f\n", xor_cost(x))
@@ -168,7 +168,7 @@ xor :: proc() {
     }
 
     for y := 0; y < len(input); y += 1 {
-        fmt.printf("%v | %v = %v \n", 
+        fmt.printf("%.0f | %.0f = %.0f \n", 
             input[y][0], 
             input[y][1], 
             forward(x, input[y][0], input[y][1]));
